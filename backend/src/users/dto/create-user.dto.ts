@@ -6,7 +6,7 @@ import {
   IsPhoneNumber,
   IsString,
 } from 'class-validator';
-import { Role } from 'src/enum/role.enum';
+import { Role } from './../../enum/role.enum';
 export class CreateUserDto {
   @IsNotEmpty()
   @IsEmail()

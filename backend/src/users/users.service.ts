@@ -15,7 +15,7 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-  ) {}
+  ) { }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     try {
@@ -27,7 +27,6 @@ export class UsersService {
       ) {
         throw new UnprocessableEntityException('Email already in use');
       } else {
-        // se for outro tipo de erro, relança a exceção
         throw e;
       }
     }

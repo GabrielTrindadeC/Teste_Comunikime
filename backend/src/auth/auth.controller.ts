@@ -1,12 +1,12 @@
 import { Body, Controller, Patch, Post, UseGuards } from '@nestjs/common';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { CreateUserDto } from '../users/dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
 import { AuthService } from './auth.service';
 // import { ForgetPwdDto } from './dto/forgetPwd.dto';
 import { ResetPwdDto } from './dto/resetPwd.dto';
 import { AuthGuard } from './Guard/auth.guard';
-import { UserInfo } from 'src/decorator/user.decorator';
-import { User } from 'src/users/entities/user.entity';
+import { UserInfo } from '../decorator/user.decorator';
+import { User } from '../users/entities/user.entity';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
