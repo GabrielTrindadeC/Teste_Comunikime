@@ -1,26 +1,57 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Product } from './entities/product.entity';
+import { In, Repository } from 'typeorm';
 
 @Injectable()
 export class ProductsService {
-  create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+  constructor(
+    @InjectRepository(Product)
+    private readonly productRepository: Repository<Product>,
+  ) { }
+  async create(createProductDto: CreateProductDto) {
+    return await this.productRepository.save(createProductDto);
   }
 
-  findAll() {
-    return `This action returns all products`;
+  async findAll() {
+    return await this.productRepository.find();
+  }
+  async findByIds(ids: number[]) {
+    const products: Product[] = [];
+    for (const id of ids) {
+      const product = await this.productRepository.findOne({
+        where: {
+          id: id,
+        },
+      });
+      if (product) {
+        products.push(product);
+      }
+    }
+    return products;
+  }
+  async findOne(id: number) {
+    try {
+      return await this.productRepository.findOneOrFail({
+        where: {
+          id: id,
+        },
+      });
+    } catch (error) {
+      throw new NotFoundException('Product not found');
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  async update(id: number, updateProductDto: UpdateProductDto) {
+    const product = await this.findOne(id);
+    this.productRepository.merge(product, updateProductDto);
+    return await this.productRepository.save(product);
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: number) {
+    await this.findOne(id);
+    return await this.productRepository.delete(id);
   }
 }

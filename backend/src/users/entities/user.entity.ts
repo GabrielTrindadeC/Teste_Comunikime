@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Purchase } from '../../purchases/entities/purchase.entity';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('increment')
@@ -15,4 +16,6 @@ export class User {
   address: string;
   @Column()
   phone: string;
+  @OneToMany(() => Purchase, (purchase) => purchase.user)
+  purchases: Purchase[];
 }
