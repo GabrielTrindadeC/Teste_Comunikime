@@ -63,7 +63,7 @@ export class AuthService {
 
   async forget(credentials: ForgetPwdDto) {
     const user = await this.usersService.findOneByEmail(credentials.email);
-    return true;
+    return user;
   }
 
   async reset(credentials: ResetPwdDto, id: number) {

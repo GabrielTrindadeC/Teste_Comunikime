@@ -37,4 +37,4 @@ import { PurchasesModule } from './purchases/purchases.module';
     },
   ],
 })
-export class AppModule { }
+export class AppModule {}

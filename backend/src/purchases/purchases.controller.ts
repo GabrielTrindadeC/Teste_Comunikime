@@ -7,7 +7,7 @@ import { Roles } from '../decorator/roles.decorator';
 @UseGuards(AuthGuard, RoleGuard)
 @Controller('purchases')
 export class PurchasesController {
-  constructor(private readonly purchasesService: PurchasesService) { }
+  constructor(private readonly purchasesService: PurchasesService) {}
   @Post()
   create(
     @Body('userId') userId: number,

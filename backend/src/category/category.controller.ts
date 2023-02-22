@@ -18,7 +18,7 @@ import { Role } from '../enum/role.enum';
 @UseGuards(AuthGuard, RoleGuard)
 @Controller('category')
 export class CategoryController {
-  constructor(private readonly categoryService: CategoryService) { }
+  constructor(private readonly categoryService: CategoryService) {}
   @Roles(Role.Admin)
   @Post()
   create(@Body() createCategoryDto: CreateCategoryDto) {

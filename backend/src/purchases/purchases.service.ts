@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePurchaseDto } from './dto/create-purchase.dto';
-import { UpdatePurchaseDto } from './dto/update-purchase.dto';
 import { UsersService } from '../users/users.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Purchase } from './entities/purchase.entity';
@@ -17,7 +15,7 @@ export class PurchasesService {
     private readonly productService: ProductsService,
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
-  ) { }
+  ) {}
   async create(userId: number, productsId: number[]) {
     const user = await this.userService.findOne(userId);
     const products: Product[] = await this.productService.findByIds(productsId);

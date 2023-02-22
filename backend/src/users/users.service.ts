@@ -1,5 +1,4 @@
 import {
-  ConflictException,
   Injectable,
   NotFoundException,
   UnprocessableEntityException,
@@ -15,7 +14,7 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-  ) { }
+  ) {}
   async create(createUserDto: CreateUserDto): Promise<User> {
     try {
       return await this.userRepository.save(createUserDto);
