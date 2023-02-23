@@ -17,7 +17,7 @@ export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwt: JwtService,
-  ) {}
+  ) { }
 
   async register(createUserDto: RegisterDto) {
     const hashedPwd = await bcrypt.hash(createUserDto.password, 12);
@@ -58,7 +58,11 @@ export class AuthService {
       throw new UnauthorizedException('Invalid Credentials');
     }
     const jwtToken = this.createToken(user);
-    return jwtToken;
+    const response = {
+      user: user,
+      jwtToken: (await jwtToken).access_token,
+    };
+    return response;
   }
 
   async forget(credentials: ForgetPwdDto) {

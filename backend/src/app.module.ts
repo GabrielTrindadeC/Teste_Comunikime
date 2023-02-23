@@ -15,7 +15,7 @@ import { PurchasesModule } from './purchases/purchases.module';
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: 'db',
       port: 3306,
       username: 'root',
       password: 'root',
@@ -37,4 +37,4 @@ import { PurchasesModule } from './purchases/purchases.module';
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }
